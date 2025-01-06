@@ -5,7 +5,7 @@ The super cool animation from [ghostty.org](https://ghostty.org), adapted to run
 ## Try it out
 
 ```sh
-docker run --init -it tangowithfoxtrot/ghost
+docker run -it tangowithfoxtrot/ghost
 ```
 
 ```txt

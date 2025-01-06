@@ -18,6 +18,12 @@ fn main() -> Result<(), Box<dyn Error>> {
     let ghostty = SOURCE_DIR;
 
     let mut stderr = io::stderr();
+
+    ctrlc::set_handler(move || {
+        std::process::exit(130); // 128 + SIGINT
+    })
+    .expect("Error setting Ctrl+C handler");
+
     loop {
         for ghost in ghostty.files() {
             stderr.write_all(ghost.contents())?;

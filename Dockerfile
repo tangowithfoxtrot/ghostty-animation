@@ -1,23 +1,23 @@
 # syntax=docker/dockerfile-upstream:master-labs
 # check=experimental=all
 
-FROM --platform=$BUILDPLATFORM alpine:latest AS ghost
+FROM messense/cargo-zigbuild AS ghost
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
-WORKDIR /
 
-COPY ./target/x86_64-unknown-linux-musl/release/ghostty-animation ./x86
-COPY ./target/aarch64-unknown-linux-musl/release/ghostty-animation ./arm
+WORKDIR /work
+COPY . /work
 
 RUN <<EOF
   # Building for ${TARGETPLATFORM}
-  # Explicit target args are required: https://github.com/rust-lang/rust/issues/78210#issuecomment-714776007
   case "$TARGETPLATFORM" in
     *"linux/amd64"*)
-      mv ./x86 ghost
+      cargo build --release --target x86_64-unknown-linux-musl
+      mv ./target/x86_64-unknown-linux-musl/release/ghostty-animation ghost
       ;;
     *"linux/arm64"*)
-      mv ./arm ghost
+      cargo build --release --target aarch64-unknown-linux-musl
+      mv ./target/aarch64-unknown-linux-musl/release/ghostty-animation ghost
       ;;
     *)
       echo "Unsupported target platform: $TARGETPLATFORM";
@@ -26,10 +26,10 @@ RUN <<EOF
   esac
 EOF
 
-FROM scratch as release
+FROM scratch AS release
 
 # copy ghost
-COPY --from=ghost /ghost /ghost
+COPY --from=ghost /work/ghost /ghost
 USER 65534:65534
 
 FROM release

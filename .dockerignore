@@ -1,0 +1,5 @@
+*
+!src/*
+!files_nocolor/*
+!Cargo.toml
+!Cargo.lock
