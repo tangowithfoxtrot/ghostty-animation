@@ -20,7 +20,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut stderr = io::stderr();
 
     ctrlc::set_handler(move || {
-        std::process::exit(130); // 128 + SIGINT
+        std::process::exit(0);
     })
     .expect("Error setting Ctrl+C handler");
 
