@@ -8,7 +8,9 @@ The super cool animation from [ghostty.org](https://ghostty.org), adapted to run
 docker run -it tangowithfoxtrot/ghost
 ```
 
-```txt
+---
+
+```
                                           ++====****====++                                          
                                     +=***%==+o        ox==%***=+                                    
                                 ===*++                        ++*===                                
