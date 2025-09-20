@@ -4,9 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+crossterm = "0.29.0"
 ctrlc = { version = "3.4.5" }
 include_dir = "0.7.4"
+regex = "1.11.2"
 
 [profile.release]
-strip = "symbols"
+strip = true
 opt-level = "s"
